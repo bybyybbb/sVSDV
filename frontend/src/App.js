@@ -387,6 +387,51 @@ function App() {
           </Alert>
         )}
 
+        {/* PWA Installation Prompt */}
+        {showPWAPrompt && !isStandalone && (
+          <Card className="mb-6 bg-gradient-to-r from-purple-900 to-blue-900 border-purple-700">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-3 rounded-lg">
+                    <Download className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white">Als Desktop-App installieren</h3>
+                    <p className="text-slate-300 text-sm">
+                      Installieren Sie den Twitter Bot als Desktop-Anwendung für bessere Performance und einfacheren Zugriff!
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Button
+                    onClick={() => {
+                      // Trigger manual PWA install
+                      if (window.deferredPrompt) {
+                        window.deferredPrompt.prompt();
+                      } else {
+                        showAlert('Installation über Browser-Menü: Weitere Tools → App installieren', 'info');
+                      }
+                      setShowPWAPrompt(false);
+                    }}
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  >
+                    <Monitor className="w-4 h-4 mr-2" />
+                    Installieren
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setShowPWAPrompt(false)}
+                    className="text-slate-300 hover:text-white"
+                  >
+                    Später
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Main Content */}
         <Tabs defaultValue="dashboard" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5 bg-slate-800 border-slate-700">
