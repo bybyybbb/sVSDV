@@ -27,12 +27,13 @@ const registerServiceWorker = async () => {
         }
       });
       
-      // PWA Install Prompt
+// PWA Install Prompt
       let deferredPrompt;
       window.addEventListener('beforeinstallprompt', (e) => {
         console.log('Twitter Bot PWA: Installation verfügbar');
         e.preventDefault();
         deferredPrompt = e;
+        window.deferredPrompt = e; // Mache es global verfügbar
         
         // Zeige Install-Button nach kurzer Verzögerung
         setTimeout(() => {
@@ -46,6 +47,7 @@ const registerServiceWorker = async () => {
       window.addEventListener('appinstalled', () => {
         console.log('Twitter Bot PWA: App installiert!');
         deferredPrompt = null;
+        window.deferredPrompt = null;
       });
       
     } catch (error) {
