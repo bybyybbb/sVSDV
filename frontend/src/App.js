@@ -15,7 +15,10 @@ import {
   AlertCircle,
   CheckCircle,
   Clock,
-  Target
+  Target,
+  Download,
+  Smartphone,
+  Monitor
 } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/ui/card';
@@ -49,6 +52,8 @@ function App() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [isStandalone, setIsStandalone] = useState(false);
+  const [showPWAPrompt, setShowPWAPrompt] = useState(false);
 
   // Form states
   const [newAccountUsername, setNewAccountUsername] = useState('');
@@ -56,7 +61,20 @@ function App() {
 
   useEffect(() => {
     initializeApp();
+    checkPWAStatus();
   }, []);
+
+  const checkPWAStatus = () => {
+    // Prüfe ob als PWA läuft
+    const isStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
+    const isIOSStandalone = window.navigator.standalone === true;
+    setIsStandalone(isStandaloneMode || isIOSStandalone);
+    
+    // Zeige PWA-Prompt wenn nicht installiert
+    if (!isStandaloneMode && !isIOSStandalone) {
+      setTimeout(() => setShowPWAPrompt(true), 3000);
+    }
+  };
 
   const initializeApp = async () => {
     await Promise.all([
