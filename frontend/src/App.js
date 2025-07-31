@@ -406,11 +406,29 @@ function App() {
                 <div className="flex items-center space-x-3">
                   <Button
                     onClick={() => {
+                      console.log('PWA Install button clicked');
+                      console.log('window.deferredPrompt:', window.deferredPrompt);
+                      
                       // Trigger manual PWA install
                       if (window.deferredPrompt) {
-                        window.deferredPrompt.prompt();
+                        console.log('Triggering PWA install prompt');
+                        window.deferredPrompt.prompt().then(() => {
+                          return window.deferredPrompt.userChoice;
+                        }).then((choiceResult) => {
+                          console.log('User choice:', choiceResult.outcome);
+                          if (choiceResult.outcome === 'accepted') {
+                            showAlert('App wird installiert... 🚀', 'success');
+                          } else {
+                            showAlert('Installation abgebrochen', 'info');
+                          }
+                          window.deferredPrompt = null;
+                        }).catch((error) => {
+                          console.error('PWA install error:', error);
+                          showAlert('Installation fehlgeschlagen: ' + error.message, 'error');
+                        });
                       } else {
-                        showAlert('Installation über Browser-Menü: Weitere Tools → App installieren', 'info');
+                        console.log('No deferredPrompt available, showing manual instructions');
+                        showAlert('Manuelle Installation: Browser-Menü → "App installieren" oder Adressleiste-Icon verwenden', 'info');
                       }
                       setShowPWAPrompt(false);
                     }}
