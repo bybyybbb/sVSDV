@@ -173,6 +173,9 @@ backend:
         -working: true
         -agent: "main"
         -comment: "Start/stop bot functionality with AsyncIOScheduler for automated monitoring"
+        -working: true
+        -agent: "testing"
+        -comment: "Bot control system tested successfully. Start and stop endpoints working correctly. Bot status properly tracked and reported via health endpoint. AsyncIOScheduler integration confirmed functional."
 
   - task: "Automated Monitoring & Commenting"
     implemented: true
