@@ -124,6 +124,7 @@ const showInstallPrompt = (deferredPrompt) => {
       const { outcome } = await deferredPrompt.userChoice;
       console.log('Twitter Bot PWA: User choice:', outcome);
       deferredPrompt = null;
+      window.deferredPrompt = null;
     }
     installBanner.remove();
   });
