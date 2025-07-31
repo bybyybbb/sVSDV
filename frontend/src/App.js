@@ -54,6 +54,11 @@ function App() {
   const [alert, setAlert] = useState(null);
   const [isStandalone, setIsStandalone] = useState(false);
   const [showPWAPrompt, setShowPWAPrompt] = useState(false);
+  const [pwaDebugInfo, setPWADebugInfo] = useState({
+    hasServiceWorker: false,
+    deferredPromptAvailable: false,
+    installable: false
+  });
 
   // Form states
   const [newAccountUsername, setNewAccountUsername] = useState('');
