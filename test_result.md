@@ -143,6 +143,9 @@ backend:
         -working: true
         -agent: "main"
         -comment: "Complete CRUD operations for target accounts with Twitter username validation"
+        -working: true
+        -agent: "testing"
+        -comment: "All target account CRUD operations tested successfully. GET, POST, DELETE, and toggle functionality working. Twitter username validation confirmed. Retrieved 2 default accounts, successfully added/deleted test account."
 
   - task: "Comment Pool Management API"
     implemented: true
