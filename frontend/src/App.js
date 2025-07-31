@@ -75,10 +75,33 @@ function App() {
     const isIOSStandalone = window.navigator.standalone === true;
     setIsStandalone(isStandaloneMode || isIOSStandalone);
     
+    // PWA Debug Info sammeln
+    const debugInfo = {
+      hasServiceWorker: 'serviceWorker' in navigator,
+      deferredPromptAvailable: !!window.deferredPrompt,
+      installable: !isStandaloneMode && !isIOSStandalone,
+      userAgent: navigator.userAgent.substring(0, 50) + '...',
+      displayMode: isStandaloneMode ? 'standalone' : 'browser'
+    };
+    setPWADebugInfo(debugInfo);
+    
+    console.log('PWA Debug Info:', debugInfo);
+    
     // Zeige PWA-Prompt wenn nicht installiert
     if (!isStandaloneMode && !isIOSStandalone) {
       setTimeout(() => setShowPWAPrompt(true), 3000);
     }
+    
+    // Prüfe regelmäßig auf deferredPrompt
+    const checkInterval = setInterval(() => {
+      if (window.deferredPrompt && !debugInfo.deferredPromptAvailable) {
+        setPWADebugInfo(prev => ({...prev, deferredPromptAvailable: true}));
+        console.log('deferredPrompt now available!');
+      }
+    }, 1000);
+    
+    // Cleanup nach 30 Sekunden
+    setTimeout(() => clearInterval(checkInterval), 30000);
   };
 
   const initializeApp = async () => {
