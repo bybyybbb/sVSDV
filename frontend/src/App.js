@@ -478,6 +478,50 @@ function App() {
           </Card>
         )}
 
+        {/* PWA Debug Panel - nur im Development Mode */}
+        {process.env.NODE_ENV === 'development' && (
+          <Card className="mb-6 bg-slate-800 border-slate-600">
+            <CardHeader>
+              <CardTitle className="text-slate-100 text-sm">🔧 PWA Debug Info</CardTitle>
+            </CardHeader>
+            <CardContent className="text-xs">
+              <div className="grid grid-cols-2 gap-4 text-slate-300">
+                <div>
+                  <strong>Service Worker:</strong> {pwaDebugInfo.hasServiceWorker ? '✅' : '❌'}
+                </div>
+                <div>
+                  <strong>Deferred Prompt:</strong> {pwaDebugInfo.deferredPromptAvailable ? '✅' : '❌'}
+                </div>
+                <div>
+                  <strong>Installable:</strong> {pwaDebugInfo.installable ? '✅' : '❌'}
+                </div>
+                <div>
+                  <strong>Display Mode:</strong> {pwaDebugInfo.displayMode}
+                </div>
+                <div className="col-span-2">
+                  <strong>User Agent:</strong> {pwaDebugInfo.userAgent}
+                </div>
+              </div>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="mt-3"
+                onClick={() => {
+                  console.log('Manual PWA Check');
+                  console.log('window.deferredPrompt:', window.deferredPrompt);
+                  console.log('serviceWorker supported:', 'serviceWorker' in navigator);
+                  setPWADebugInfo(prev => ({
+                    ...prev,
+                    deferredPromptAvailable: !!window.deferredPrompt
+                  }));
+                }}
+              >
+                Refresh Debug Info
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Main Content */}
         <Tabs defaultValue="dashboard" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5 bg-slate-800 border-slate-700">
