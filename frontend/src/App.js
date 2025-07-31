@@ -320,6 +320,21 @@ function App() {
             </div>
             
             <div className="flex items-center space-x-4">
+              {/* PWA Status */}
+              {isStandalone && (
+                <Card className="bg-gradient-to-r from-green-800 to-green-700 border-green-600">
+                  <CardContent className="p-4">
+                    <div className="flex items-center space-x-2">
+                      <Smartphone className="w-4 h-4 text-green-300" />
+                      <span className="text-sm text-green-100 font-medium">
+                        Desktop App
+                      </span>
+                    </div>
+                    <p className="text-xs text-green-200 mt-1">PWA Modus aktiv</p>
+                  </CardContent>
+                </Card>
+              )}
+              
               {/* Connection Status */}
               <Card className="bg-slate-800 border-slate-700">
                 <CardContent className="p-4">
