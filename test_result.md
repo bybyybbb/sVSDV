@@ -191,6 +191,9 @@ backend:
         -working: true
         -agent: "main"
         -comment: "Background task monitors target accounts and posts randomized comments with delays"
+        -working: true
+        -agent: "testing"
+        -comment: "Bot settings API tested successfully. GET and PUT operations working correctly. Settings properly configured with comments_per_day: 15, delay ranges, and category management. Settings update and retrieval confirmed functional."
 
   - task: "Activity Logging System"
     implemented: true
