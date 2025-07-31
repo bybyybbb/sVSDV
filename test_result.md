@@ -158,6 +158,9 @@ backend:
         -working: true
         -agent: "main"
         -comment: "CRUD operations for comment management with categories and usage tracking"
+        -working: true
+        -agent: "testing"
+        -comment: "Comment management API fully functional. GET and POST operations tested successfully. Retrieved 5 default active comments, successfully added and deleted test comment. Category and usage tracking working correctly."
 
   - task: "Bot Control System"
     implemented: true
